@@ -1,0 +1,27 @@
+##assuming you are in sudo su mode##
+Big thanks to the original creator jpillora,
+
+Before you start, please make sure you have set static IP to your VM/server.
+
+First create a file /opt/dnsmasq.conf in the host with the following:
+
+#dnsmasq config, for a complete example, see:
+#  http://oss.segetech.com/intra/srv/dnsmasq.conf
+#log all dns queries
+log-queries
+#dont use hosts nameservers
+no-resolv
+#use cloudflare as default nameservers, prefer 1^4
+server=1.0.0.1
+server=1.1.1.1
+strict-order
+#serve all .company queries using a specific nameserver
+server=/company/10.0.0.1
+#explicitly define host-ip mappings
+address=/myhost.company/10.0.0.2
+
+
+Next Run the following commands to make system up and running:
+docker pull muraddevops/jpillora_dnsmasq;
+systemctl disable --now systemd-resolved;
+docker run --name dnsmasq -d -p 53:53/udp -p 5380:8080 -v /opt/dnsmasq.conf:/etc/dnsmasq.conf --log-opt "max-size=100m" -e "HTTP_USER=foo" -e "HTTP_PASS=bar" --restart always muraddevops/jpillora_dnsmasq;
