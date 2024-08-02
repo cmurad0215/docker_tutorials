@@ -1,0 +1,5 @@
+# for accessing docker registry via http (without https), add the following lines in all server in the file: /etc/docker/daemon.json
+
+{
+    "insecure-registries" : [ "hostname.cloudapp.net:5000" ]
+}
