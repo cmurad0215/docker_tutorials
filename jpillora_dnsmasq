@@ -13,4 +13,7 @@ docker run --name dnsmasq -d -p 53:53/udp -p 5380:8080 -v /opt/dnsmasq.conf:/etc
 
 Access the web portal via the port 5380 of your VM/server's IP for access to live config update and live log data
 
+default username: foo
+default password: bar
+
 Thanks again to the original creator jpillora.
