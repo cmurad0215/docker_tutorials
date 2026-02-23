@@ -1,0 +1,20 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+
+networking:
+  apiServerAddress: "0.0.0.0"
+  apiServerPort: 9443
+
+nodes:
+  - role: control-plane
+    extraPortMappings:
+      - containerPort: 30001
+        hostPort: 30001
+        protocol: TCP
+    kubeadmConfigPatches:
+      - |
+        apiVersion: kubeadm.k8s.io/v1beta3
+        kind: ClusterConfiguration
+        apiServer:
+          certSANs:
+            - "172.16.10.43"
