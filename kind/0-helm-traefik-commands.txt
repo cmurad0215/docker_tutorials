@@ -1,0 +1,5 @@
+helm install traefik traefik/traefik --namespace traefik --create-namespace \ 
+--set service.type=NodePort \
+--set service.spec.externalTrafficPolicy=Cluster \
+--set ports.web.nodePort=30080 \
+--set ports.websecure.nodePort=30443
